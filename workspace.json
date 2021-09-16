@@ -1,57 +1,6 @@
 {
   "version": 2,
   "projects": {
-    "db-microservice": {
-      "root": "apps/db-microservice",
-      "sourceRoot": "apps/db-microservice/src",
-      "projectType": "application",
-      "targets": {
-        "build": {
-          "executor": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/db-microservice",
-            "main": "apps/db-microservice/src/main.ts",
-            "tsConfig": "apps/db-microservice/tsconfig.app.json",
-            "assets": ["apps/db-microservice/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/db-microservice/src/environments/environment.ts",
-                  "with": "apps/db-microservice/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "executor": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "db-microservice:build"
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["apps/db-microservice/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/db-microservice"],
-          "options": {
-            "jestConfig": "apps/db-microservice/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "domain": {
       "root": "libs/domain",
       "sourceRoot": "libs/domain/src",
@@ -91,6 +40,57 @@
           "outputs": ["coverage/libs/json-data"],
           "options": {
             "jestConfig": "libs/json-data/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "partitura-microservice": {
+      "root": "apps/partitura-microservice",
+      "sourceRoot": "apps/partitura-microservice/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/partitura-microservice",
+            "main": "apps/partitura-microservice/src/main.ts",
+            "tsConfig": "apps/partitura-microservice/tsconfig.app.json",
+            "assets": ["apps/partitura-microservice/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/partitura-microservice/src/environments/environment.ts",
+                  "with": "apps/partitura-microservice/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "partitura-microservice:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/partitura-microservice/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/partitura-microservice"],
+          "options": {
+            "jestConfig": "apps/partitura-microservice/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -195,5 +195,5 @@
   "cli": {
     "defaultCollection": "@nrwl/node"
   },
-  "defaultProject": "db-microservice"
+  "defaultProject": "partitura-microservice"
 }

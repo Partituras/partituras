@@ -27,13 +27,13 @@
     ]
   },
   "projects": {
-    "db-microservice": {
-      "tags": []
-    },
     "domain": {
       "tags": []
     },
     "json-data": {
+      "tags": []
+    },
+    "partitura-microservice": {
       "tags": []
     },
     "search-microservice": {
