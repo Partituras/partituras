@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package Api.Partituras.V1;
+
+import "common.proto";
+
+service SearchService {
+  rpc Search (SearchRequest) returns (SearchResponse) {}
+}
+
+message SearchRequest {
+  string query = 1;
+  CursorPaginationOptions pagination_options = 2;
+}
+
+message SearchResponse {
+  repeated Partitura items = 1;
+  CursorPaginationInfo pagination_info = 2;
+}

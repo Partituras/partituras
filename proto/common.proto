@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package Api.Partituras.V1;
+
+message Partitura {
+  string id = 1;
+  string title = 2;
+  string genre = 3;
+  repeated string poetry = 4;
+  repeated string music = 5;
+  repeated Resource scores = 6;
+  Lyrics lyrics = 7;
+  Resource cover = 8;
+  repeated Audio playlist = 9;
+  Resource source = 10;
+}
+
+message Resource {
+  string uri = 1;
+}
+
+message Lyrics {
+  string text = 1;
+}
+
+message AudioFormat {
+  Resource source = 1;
+  string format = 2;
+}
+
+message Audio {
+  string title = 1;
+  string description = 2;
+  int32 duration = 3;
+  repeated AudioFormat formats = 4;
+}
+
+message CursorPaginationOptions {
+  int32 limit = 1;
+  int32 next = 2;
+}
+
+message CursorPaginationInfo {
+  int32 next = 1;
+  int32 prev = 2;
+}
+
+message Empty {}

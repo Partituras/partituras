@@ -14,7 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@partituras/domain": ["libs/domain/src/index.ts"],
+      "@partituras/json-data": ["libs/json-data/src/index.ts"],
+      "@partituras/services": ["libs/services/src/index.ts"],
+      "@partituras/util": ["libs/util/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

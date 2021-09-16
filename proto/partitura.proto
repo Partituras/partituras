@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package Api.Partituras.V1;
+
+import "common.proto";
+
+service PartituraService {
+  rpc GetById (GetByIdRequest) returns (Partitura) {}
+  rpc GetAll (GetAllRequest) returns (GetAllResponse) {}
+}
+
+message GetByIdRequest {
+  string id = 1;
+}
+
+message GetAllRequest {
+  CursorPaginationOptions pagination_options = 1;
+}
+
+message GetAllResponse {
+  repeated Partitura items = 1;
+  CursorPaginationInfo pagination_info = 2;
+}
