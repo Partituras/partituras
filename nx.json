@@ -33,9 +33,6 @@
     "graphql-api": {
       "tags": []
     },
-    "graphql-schema": {
-      "tags": []
-    },
     "json-data": {
       "tags": []
     },
@@ -46,9 +43,6 @@
       "tags": []
     },
     "services": {
-      "tags": []
-    },
-    "util": {
       "tags": []
     }
   }
