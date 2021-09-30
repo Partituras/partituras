@@ -1,13 +1,17 @@
-import { ISearchService, PaginationOptions, PaginatedResponse } from './types';
+import {
+  ISearchService,
+  PaginationOptions,
+  PaginatedResponse,
+  SearchRequest,
+} from './types';
 import { convertToNewFormat, Partitura } from '@partituras/domain';
 import data from '@partituras/json-data';
 
 export class JsonSearchService implements ISearchService {
-  search(
-    query: string,
-    options: PaginationOptions
-  ): Promise<PaginatedResponse<Partitura>> {
+  search(request: SearchRequest): Promise<PaginatedResponse<Partitura>> {
     return new Promise((resolve) => {
+      const { query, options } = request;
+
       const expression = new RegExp(query.toLowerCase(), 'gi');
 
       const items = data

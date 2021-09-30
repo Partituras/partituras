@@ -1,6 +1,6 @@
 import { Controller, Inject } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
-import { ISearchService } from '@partituras/services';
+import { ISearchService, SearchRequest } from '@partituras/services';
 
 @Controller()
 export class AppController {
@@ -9,10 +9,7 @@ export class AppController {
   ) {}
 
   @GrpcMethod('SearchService', 'Search')
-  async search(body: {
-    query: string;
-    paginationOptions: { limit: number; next: number };
-  }) {
-    return await this.service.search(body.query, body.paginationOptions);
+  async search(body: SearchRequest) {
+    return await this.service.search(body);
   }
 }

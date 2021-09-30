@@ -1,6 +1,10 @@
 import { Controller, Inject } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
-import { IPartituraService } from '@partituras/services';
+import {
+  GetAllRequest,
+  GetByIdRequest,
+  IPartituraService,
+} from '@partituras/services';
 
 @Controller()
 export class AppController {
@@ -9,12 +13,12 @@ export class AppController {
   ) {}
 
   @GrpcMethod('PartituraService', 'GetById')
-  async getById(body: { id: string }) {
-    return await this.service.getById(body.id);
+  async getById(body: GetByIdRequest) {
+    return await this.service.getById(body);
   }
 
   @GrpcMethod('PartituraService', 'GetAll')
-  async getAll(body: { paginationOptions: { limit: number; next: number } }) {
-    return await this.service.getAll(body.paginationOptions);
+  async getAll(body: GetAllRequest) {
+    return await this.service.getAll(body);
   }
 }

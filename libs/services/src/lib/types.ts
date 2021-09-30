@@ -1,8 +1,8 @@
 import {
+  Nullable,
   Partitura,
   PartituraId,
   PdfDocument,
-  Nullable,
 } from '@partituras/domain';
 
 export type PaginationOptions = {
@@ -18,18 +18,32 @@ export interface PaginatedResponse<T> {
   };
 }
 
+export interface GetByIdRequest {
+  id: PartituraId;
+}
+
+export interface GetAllRequest {
+  paginationOptions: PaginationOptions;
+}
+
+export interface SearchRequest {
+  query: string;
+  options: PaginationOptions;
+}
+
+export interface GeneratePdfRequest {
+  partitura: Partitura;
+}
+
 export interface IPartituraService {
-  getById(id: PartituraId): Promise<Nullable<Partitura>>;
-  getAll(options: PaginationOptions): Promise<PaginatedResponse<Partitura>>;
+  getById(request: GetByIdRequest): Promise<Nullable<Partitura>>;
+  getAll(request: GetAllRequest): Promise<PaginatedResponse<Partitura>>;
 }
 
 export interface ISearchService {
-  search(
-    query: string,
-    options: PaginationOptions
-  ): Promise<PaginatedResponse<Partitura>>;
+  search(request: SearchRequest): Promise<PaginatedResponse<Partitura>>;
 }
 
 export interface IPdfService {
-  generatePdf(partitura: Partitura): Promise<PdfDocument>;
+  generatePdf(request: GeneratePdfRequest): Promise<PdfDocument>;
 }

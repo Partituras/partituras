@@ -30,6 +30,12 @@
     "domain": {
       "tags": []
     },
+    "graphql-api": {
+      "tags": []
+    },
+    "graphql-schema": {
+      "tags": []
+    },
     "json-data": {
       "tags": []
     },

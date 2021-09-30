@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { JsonPartituraService } from '@partituras/services';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [],

@@ -1,31 +1,31 @@
 import { Nullable, UniqueId, Resource } from './common';
 
-type Duration = number;
+export type Duration = number;
 
-type Playlist = Array<Audio>;
+export type Playlist = Array<Audio>;
 
-type UrlList = Array<Resource>;
+export type UrlList = Array<Resource>;
 
-type AuthorList = Array<string>;
+export type AuthorList = Array<string>;
 
-type FormatList = Array<Format>;
+export type FormatList = Array<Format>;
 
-type FormatType = string; //'ogg' | 'mp3';
+export type FormatType = string; //'ogg' | 'mp3';
 
 export type PartituraId = UniqueId;
 
-type Genre = string;
+export type Genre = string;
 
-type Lyrics = {
+export type Lyrics = {
   text: string;
 };
 
-interface Format {
-  format: FormatType;
+export interface Format {
+  type: FormatType;
   url: Resource;
 }
 
-interface Audio {
+export interface Audio {
   title: string;
   description: string;
   duration: Duration;
@@ -109,7 +109,7 @@ export const convertToNewFormat = (old: OldPartitura): Partitura => ({
           description: i.description,
           duration: i.duration,
           formats: i.formats.map((f) => ({
-            format: f.format,
+            type: f.format,
             url: { uri: f.url },
           })),
         })),

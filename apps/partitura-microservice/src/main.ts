@@ -10,7 +10,7 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        url: `0.0.0.0:${process.env.PARTITURA_MICROSERVICE_PORT || 3333}`,
+        url: process.env.PARTITURA_GRPC_URL,
         package: 'Api.Partituras.V1',
         protoPath: path.join(__dirname, '../../../proto/partitura.proto'),
       },
