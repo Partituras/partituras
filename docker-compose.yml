@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  partitura-microservice:
+    image: partituras/partitura:latest
+    container_name: partituras-partitura
+    environment:
+      HOST: 0.0.0.0
+      PORT: 6565
+    ports:
+      - 3001:6565
+    depends_on:
+      - mongo
+    networks:
+      - partituras-internal
+
+  search-microservice:
+    image: partituras/search:latest
+    container_name: partituras-search
+    environment:
+      HOST: 0.0.0.0
+      PORT: 6565
+    ports:
+      - 3002:6565
+    networks:
+      - partituras-internal
+
+  graphql-microservice:
+    image: partituras/graphql:latest
+    container_name: partituras-graphql
+    environment:
+      PORT: 3000
+    ports:
+      - 3000:3000
+    depends_on:
+      - search-microservice
+      - partitura-microservice
+    networks:
+      - partituras-internal
+      - partituras-external
+
+  mongo:
+    image: mongo
+    container_name: partituras-mongo
+    restart: always
+    ports:
+      - "27017-27019:27017-27019"
+    volumes:
+      - ./infrastructure/mongo/data:/data/db
+    networks:
+      - partituras-internal
+networks:
+  partituras-internal:
+  partituras-external:

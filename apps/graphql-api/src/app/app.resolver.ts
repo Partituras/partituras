@@ -1,9 +1,9 @@
-import { Args, ArgsType, Field, Int, Query, Resolver } from '@nestjs/graphql';
-import { PartituraSchema } from './partitura.model';
-import { Partitura, PartituraId } from '@partituras/domain';
 import { Inject, NotFoundException, OnModuleInit } from '@nestjs/common';
-import { IPartituraService, PaginationOptions } from '@partituras/services';
 import { ClientGrpc } from '@nestjs/microservices';
+import { Args, ArgsType, Field, Int, Query, Resolver } from '@nestjs/graphql';
+import { Partitura } from '@partituras/domain';
+import { IPartituraService, PaginationOptions } from '@partituras/services';
+import { PartituraSchema } from './app.schema';
 
 @ArgsType()
 export class PaginationArgs implements PaginationOptions {
@@ -15,7 +15,7 @@ export class PaginationArgs implements PaginationOptions {
 }
 
 @Resolver((of) => PartituraSchema)
-export class PartituraResolver implements OnModuleInit {
+export class AppResolver implements OnModuleInit {
   private service: IPartituraService;
 
   constructor(
@@ -29,11 +29,7 @@ export class PartituraResolver implements OnModuleInit {
 
   @Query((returns) => PartituraSchema)
   async partitura(@Args('id') id: string): Promise<Partitura> {
-    const partitura = await this.service.getById({ id });
-    if (!partitura) {
-      throw new NotFoundException(id);
-    }
-    return partitura;
+    return await this.service.getById({ id });
   }
 
   @Query((returns) => [PartituraSchema])

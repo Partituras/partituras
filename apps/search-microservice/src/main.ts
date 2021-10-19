@@ -10,9 +10,9 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        url: process.env.SEARCH_GRPC_URL,
+        url: `${process.env.HOST}:${process.env.PORT}`,
         package: 'Api.Partituras.V1',
-        protoPath: path.join(__dirname, '../../../proto/search.proto'),
+        protoPath: path.join(__dirname, 'assets/proto/search.proto'),
       },
     }
   );

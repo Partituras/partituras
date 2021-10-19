@@ -35,7 +35,11 @@
             "outputPath": "dist/apps/graphql-api",
             "main": "apps/graphql-api/src/main.ts",
             "tsConfig": "apps/graphql-api/tsconfig.app.json",
-            "assets": ["apps/graphql-api/src/assets"]
+            "assets": [
+              "apps/graphql-api/src/assets",
+              { "glob": "**/*", "input": "proto", "output": "./assets/proto" }
+            ],
+            "generatePackageJson": true
           },
           "configurations": {
             "production": {
@@ -108,7 +112,11 @@
             "outputPath": "dist/apps/partitura-microservice",
             "main": "apps/partitura-microservice/src/main.ts",
             "tsConfig": "apps/partitura-microservice/tsconfig.app.json",
-            "assets": ["apps/partitura-microservice/src/assets"]
+            "assets": [
+              "apps/partitura-microservice/src/assets",
+              { "glob": "**/*", "input": "proto", "output": "./assets/proto" }
+            ],
+            "generatePackageJson": true
           },
           "configurations": {
             "production": {
@@ -159,7 +167,11 @@
             "outputPath": "dist/apps/search-microservice",
             "main": "apps/search-microservice/src/main.ts",
             "tsConfig": "apps/search-microservice/tsconfig.app.json",
-            "assets": ["apps/search-microservice/src/assets"]
+            "assets": [
+              "apps/search-microservice/src/assets",
+              { "glob": "**/*", "input": "proto", "output": "./assets/proto" }
+            ],
+            "generatePackageJson": true
           },
           "configurations": {
             "production": {

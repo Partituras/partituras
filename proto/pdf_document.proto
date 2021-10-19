@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package Api.Partituras.V1;
+
+import "common.proto";
+
+service PdfDocumentService {
+  rpc GeneratePdfDocument(GeneratePdfDocumentRequest) returns (GeneratePdfDocumentResponse) {}
+}
+
+message GeneratePdfDocumentRequest {}
+
+message GeneratePdfDocumentResponse {
+  Resource document = 1;
+}

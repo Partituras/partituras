@@ -1,10 +1,11 @@
 import { Controller, Inject } from '@nestjs/common';
-import { GrpcMethod } from '@nestjs/microservices';
+import { GrpcMethod, RpcException } from '@nestjs/microservices';
 import {
   GetAllRequest,
   GetByIdRequest,
   IPartituraService,
 } from '@partituras/services';
+import { status } from '@grpc/grpc-js';
 
 @Controller()
 export class AppController {
@@ -14,7 +15,14 @@ export class AppController {
 
   @GrpcMethod('PartituraService', 'GetById')
   async getById(body: GetByIdRequest) {
-    return await this.service.getById(body);
+    const item = await this.service.getById(body);
+    if (!item) {
+      throw new RpcException({
+        code: status.NOT_FOUND,
+        message: `Could not find partitura with id "${body.id}"`,
+      });
+    }
+    return item;
   }
 
   @GrpcMethod('PartituraService', 'GetAll')
