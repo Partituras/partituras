@@ -8,7 +8,13 @@ service PdfDocumentService {
   rpc GeneratePdfDocument(GeneratePdfDocumentRequest) returns (GeneratePdfDocumentResponse) {}
 }
 
-message GeneratePdfDocumentRequest {}
+message GeneratePdfDocumentRequest {
+  repeated bytes pages = 1;
+  string title = 2;
+  repeated string music = 3;
+  repeated string poetry = 4;
+  bool add_cover = 5;
+}
 
 message GeneratePdfDocumentResponse {
   Resource document = 1;

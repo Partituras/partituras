@@ -37,12 +37,16 @@ message Audio {
 
 message CursorPaginationOptions {
   int32 limit = 1;
-  int32 next = 2;
+  string next = 2;
 }
 
 message CursorPaginationInfo {
-  int32 next = 1;
-  int32 prev = 2;
+  string next = 1;
+}
+
+message PaginatedPartiturasResponse {
+  repeated Partitura items = 1;
+  CursorPaginationInfo pagination = 2;
 }
 
 message Empty {}

@@ -34,6 +34,7 @@ export interface Audio {
 
 /**
  * @deprecated
+ * @see Resource
  */
 interface OldResource {
   url: string;
@@ -41,6 +42,7 @@ interface OldResource {
 
 /**
  * @deprecated
+ * @see Format
  */
 interface OldFormat {
   format: FormatType;
@@ -49,6 +51,7 @@ interface OldFormat {
 
 /**
  * @deprecated
+ * @see Audio
  */
 interface OldAudio extends Pick<Audio, 'title' | 'description' | 'duration'> {
   formats: Array<OldFormat>;
@@ -56,10 +59,12 @@ interface OldAudio extends Pick<Audio, 'title' | 'description' | 'duration'> {
 
 /**
  * @deprecated
+ * @See Playlist
  */
 type OldPlaylist = Array<OldAudio>;
 /**
- * @deprecated
+ * @deprecated Old format
+ * @see Partitura
  */
 export interface OldPartitura {
   id: PartituraId;

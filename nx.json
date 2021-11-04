@@ -26,24 +26,8 @@
       }
     ]
   },
-  "projects": {
-    "domain": {
-      "tags": []
-    },
-    "graphql-api": {
-      "tags": []
-    },
-    "json-data": {
-      "tags": []
-    },
-    "partitura-microservice": {
-      "tags": []
-    },
-    "search-microservice": {
-      "tags": []
-    },
-    "services": {
-      "tags": []
-    }
-  }
+  "cli": {
+    "defaultCollection": "@nrwl/node"
+  },
+  "defaultProject": "partitura-microservice"
 }

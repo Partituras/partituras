@@ -15,6 +15,17 @@ import {
   Resource,
   UrlList,
 } from '@partituras/domain';
+import {
+  PaginatedPartiturasResponse,
+  Pagination,
+  PaginationOptions,
+} from '@partituras/services';
+
+@ObjectType({ description: 'PaginationOptions' })
+export class PaginationSchema {
+  @Field((type) => String, { nullable: true })
+  next: PartituraId;
+}
 
 @ObjectType({ description: 'Resource' })
 export class ResourceSchema implements Readonly<Resource> {
@@ -57,16 +68,16 @@ export class PartituraSchema implements Readonly<Partitura> {
   @Field((type) => ID)
   id: PartituraId;
 
-  @Field()
+  @Field({})
   title: string;
 
   @Field((type) => String)
   genre: Genre;
 
-  @Field((type) => [String])
+  @Field((type) => [String], { defaultValue: [] })
   poetry: AuthorList;
 
-  @Field((type) => [String])
+  @Field((type) => [String], { defaultValue: [] })
   music: AuthorList;
 
   @Field((type) => [ResourceSchema])
@@ -83,4 +94,14 @@ export class PartituraSchema implements Readonly<Partitura> {
 
   @Field((type) => ResourceSchema)
   source: Resource;
+}
+
+@ObjectType({ description: 'Paginated Partituras Response' })
+export class PaginatedPartiturasResponseSchema
+  implements Readonly<PaginatedPartiturasResponse>
+{
+  @Field((type) => [PartituraSchema], { defaultValue: [] })
+  items: Partitura[];
+  @Field((type) => PaginationSchema)
+  pagination: Pagination<PartituraId>;
 }

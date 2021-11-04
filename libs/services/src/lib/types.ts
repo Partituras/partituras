@@ -1,34 +1,52 @@
 import {
+  Genre,
   Nullable,
   Partitura,
   PartituraId,
   PdfDocument,
 } from '@partituras/domain';
 
-export type PaginationOptions = {
-  limit: number;
-  next: number;
+export type Cursor<I> = Nullable<I>;
+
+export type Pagination<I> = {
+  next: Cursor<I>;
 };
 
-export interface PaginatedResponse<T> {
+export type PaginationOptions<I> = {
+  limit: number;
+  next: Cursor<I>;
+};
+
+export interface PaginatedRequest<I> {
+  options: PaginationOptions<I>;
+}
+
+export interface PaginatedResponse<T, I> {
   items: Array<T>;
-  paginationInfo: {
-    prev: number;
-    next: number;
-  };
+  pagination: Pagination<I>;
 }
 
-export interface GetByIdRequest {
-  id: PartituraId;
+export type PaginatedPartiturasResponse = PaginatedResponse<
+  Partitura,
+  PartituraId
+>;
+
+export interface GetByIdRequest<I> {
+  id: I;
 }
 
-export interface GetAllRequest {
-  paginationOptions: PaginationOptions;
+export type FilterOptions = {
+  matches?: string;
+  startsWith?: string;
+  genre?: Genre;
+};
+
+export interface GetAllRequest<I> extends PaginatedRequest<I> {
+  filter?: FilterOptions;
 }
 
-export interface SearchRequest {
+export interface SearchRequest<I> extends PaginatedRequest<I> {
   query: string;
-  options: PaginationOptions;
 }
 
 export interface GeneratePdfRequest {
@@ -36,12 +54,10 @@ export interface GeneratePdfRequest {
 }
 
 export interface IPartituraService {
-  getById(request: GetByIdRequest): Promise<Nullable<Partitura>>;
-  getAll(request: GetAllRequest): Promise<PaginatedResponse<Partitura>>;
-}
-
-export interface ISearchService {
-  search(request: SearchRequest): Promise<PaginatedResponse<Partitura>>;
+  getById(request: GetByIdRequest<PartituraId>): Promise<Nullable<Partitura>>;
+  getAll(
+    request: GetAllRequest<PartituraId>
+  ): Promise<PaginatedPartiturasResponse>;
 }
 
 export interface IPdfService {

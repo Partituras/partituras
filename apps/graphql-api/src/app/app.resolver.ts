@@ -1,17 +1,64 @@
-import { Inject, NotFoundException, OnModuleInit } from '@nestjs/common';
+import { Inject, OnModuleInit } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
-import { Args, ArgsType, Field, Int, Query, Resolver } from '@nestjs/graphql';
-import { Partitura } from '@partituras/domain';
-import { IPartituraService, PaginationOptions } from '@partituras/services';
-import { PartituraSchema } from './app.schema';
+import {
+  Args,
+  ArgsType,
+  Field,
+  InputType,
+  Int,
+  Query,
+  Resolver,
+} from '@nestjs/graphql';
+import { Genre, Partitura, PartituraId } from '@partituras/domain';
+import {
+  FilterOptions,
+  GetAllRequest,
+  GetByIdRequest,
+  IPartituraService,
+  PaginatedPartiturasResponse,
+  PaginationOptions,
+} from '@partituras/services';
+import {
+  PaginatedPartiturasResponseSchema,
+  PartituraSchema,
+} from './app.schema';
 
 @ArgsType()
-export class PaginationArgs implements PaginationOptions {
-  @Field((type) => Int)
-  limit: number = 10;
+export class GetByIdArgs implements GetByIdRequest<PartituraId> {
+  @Field((type) => String)
+  id: PartituraId;
+}
 
-  @Field((type) => Int)
-  next: 0;
+@InputType()
+export class FilterOptionsArgs implements FilterOptions {
+  @Field((type) => String, { nullable: true })
+  matches: string;
+
+  @Field(() => String, { nullable: true })
+  startsWith: string;
+
+  @Field(() => String, { nullable: true })
+  genre: Genre;
+}
+
+@InputType()
+export class PaginationArgs implements PaginationOptions<PartituraId> {
+  @Field(() => Int, { defaultValue: 10 })
+  limit: number;
+
+  @Field(() => String, { nullable: true, defaultValue: null })
+  next: PartituraId;
+}
+
+@ArgsType()
+export class GetAllArgs implements GetAllRequest<PartituraId> {
+  @Field(() => FilterOptionsArgs, { nullable: true })
+  filter: FilterOptions;
+
+  @Field(() => PaginationArgs, {
+    defaultValue: { limit: 10, next: null },
+  })
+  options: PaginationOptions<PartituraId>;
 }
 
 @Resolver((of) => PartituraSchema)
@@ -28,15 +75,17 @@ export class AppResolver implements OnModuleInit {
   }
 
   @Query((returns) => PartituraSchema)
-  async partitura(@Args('id') id: string): Promise<Partitura> {
-    return await this.service.getById({ id });
+  async partitura(args: GetByIdArgs): Promise<Partitura> {
+    return await this.service.getById(args);
   }
 
-  @Query((returns) => [PartituraSchema])
-  async partituras(@Args() args: PaginationArgs): Promise<Partitura[]> {
-    const { items } = await this.service.getAll({
-      paginationOptions: { ...args },
-    });
-    return items;
+  @Query((returns) => PaginatedPartiturasResponseSchema)
+  async partituras(
+    @Args() args: GetAllArgs
+  ): Promise<PaginatedPartiturasResponse> {
+    console.log('RESOLVER REQ', args);
+    const response = await this.service.getAll(args);
+    console.log('RESOLVER RES', response);
+    return response;
   }
 }

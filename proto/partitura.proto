@@ -6,18 +6,20 @@ import "common.proto";
 
 service PartituraService {
   rpc GetById (GetByIdRequest) returns (Partitura) {}
-  rpc GetAll (GetAllRequest) returns (GetAllResponse) {}
+  rpc GetAll (GetAllRequest) returns (PaginatedPartiturasResponse) {}
 }
 
 message GetByIdRequest {
   string id = 1;
 }
 
-message GetAllRequest {
-  CursorPaginationOptions pagination_options = 1;
+message FilterOptions {
+  optional string matches = 1;
+  optional string starts_with = 2;
+  optional string genre = 3;
 }
 
-message GetAllResponse {
-  repeated Partitura items = 1;
-  CursorPaginationInfo pagination_info = 2;
+message GetAllRequest {
+  optional FilterOptions filter = 1;
+  CursorPaginationOptions options = 2;
 }

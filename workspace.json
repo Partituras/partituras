@@ -21,7 +21,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "graphql-api": {
       "root": "apps/graphql-api",
@@ -37,7 +38,11 @@
             "tsConfig": "apps/graphql-api/tsconfig.app.json",
             "assets": [
               "apps/graphql-api/src/assets",
-              { "glob": "**/*", "input": "proto", "output": "./assets/proto" }
+              {
+                "glob": "**/*",
+                "input": "proto",
+                "output": "./assets/proto"
+              }
             ],
             "generatePackageJson": true
           },
@@ -76,7 +81,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "json-data": {
       "root": "libs/json-data",
@@ -98,7 +104,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "partitura-microservice": {
       "root": "apps/partitura-microservice",
@@ -114,7 +121,11 @@
             "tsConfig": "apps/partitura-microservice/tsconfig.app.json",
             "assets": [
               "apps/partitura-microservice/src/assets",
-              { "glob": "**/*", "input": "proto", "output": "./assets/proto" }
+              {
+                "glob": "**/*",
+                "input": "proto",
+                "output": "./assets/proto"
+              }
             ],
             "generatePackageJson": true
           },
@@ -153,62 +164,8 @@
             "passWithNoTests": true
           }
         }
-      }
-    },
-    "search-microservice": {
-      "root": "apps/search-microservice",
-      "sourceRoot": "apps/search-microservice/src",
-      "projectType": "application",
-      "targets": {
-        "build": {
-          "executor": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/search-microservice",
-            "main": "apps/search-microservice/src/main.ts",
-            "tsConfig": "apps/search-microservice/tsconfig.app.json",
-            "assets": [
-              "apps/search-microservice/src/assets",
-              { "glob": "**/*", "input": "proto", "output": "./assets/proto" }
-            ],
-            "generatePackageJson": true
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/search-microservice/src/environments/environment.ts",
-                  "with": "apps/search-microservice/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "executor": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "search-microservice:build"
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["apps/search-microservice/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/search-microservice"],
-          "options": {
-            "jestConfig": "apps/search-microservice/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
+      },
+      "tags": []
     },
     "services": {
       "root": "libs/services",
@@ -230,11 +187,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/node"
-  },
-  "defaultProject": "partitura-microservice"
+  }
 }
